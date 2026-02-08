@@ -21,6 +21,20 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Fetch environment variables from Parameter Store
+        run: |
+          aws ssm get-parameters-by-path \
+            --path "/frontend/prod" \
+            --recursive \
+            --query "Parameters[*].[Name,Value]" \
+            --output text | while read name value; do
+              key=$(basename $name)
+              echo "$key=$value" >> .env
+            done
+
+      - name: Print environment variables
+        run: cat .env
+
       - name: Build Project
         run: npm run build
 

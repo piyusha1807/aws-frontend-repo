@@ -4,6 +4,9 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
+  const appEnv = import.meta.env.VITE_REACT_APP_ENV;
+  const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
+
   const [count, setCount] = useState(0);
 
   return (
@@ -16,7 +19,8 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React Deployment Test</h1>
+      <h1>Vite + React Deployment Test {appEnv}</h1>
+      <h2>API URL: {apiUrl}</h2>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
